@@ -198,7 +198,7 @@ $data = mysqli_fetch_assoc($run);
                                 <hr><br><hr>
                                 </div>
                                 <ul class="social-link list-unstyled m-t-40 m-b-10">
-                                <h6>Velocity Courier Service</h6>
+                                <h6>Visit Samarth Mehra on LinkedIn by using the link https://www.linkedin.com/in/samarth-mehra-74b9b3241/ for further details</h6>
                                 </ul>
                             </div>
                         </div>
