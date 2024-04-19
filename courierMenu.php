@@ -1,3 +1,19 @@
+<?php
+session_start();
+if (isset($_SESSION['uid'])) {
+    echo "";
+} else {
+    header('location: ../index.php');
+}
+
+?>
+<?php
+include('header.php');
+$email = $_SESSION['emm'];
+$uid = $_SESSION['uid'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,7 +115,7 @@
     </style>
 </head>
 <body>
-    <?php include('header.php'); ?>
+    
     <div id="form-container">
         <form action="courierMenu.php" method="POST" enctype="multipart/form-data">
             <table>
@@ -167,5 +183,43 @@
         </form>
     </div>
     <?php include('footer.php'); ?>
+
 </body>
 </html>
+<?php
+
+if (isset($_POST['submit'])) { 
+    include('../dbconnection.php');
+
+    $sname = $_POST['sname'];
+    $rname = $_POST['rname'];
+    $semail = $_POST['semail'];
+    $remail = $_POST['remail'];
+    $sphone = $_POST['sphone'];
+    $rphone = $_POST['rphone'];
+    $sadd = $_POST['saddress'];
+    $radd = $_POST['raddress'];
+    $wgt = $_POST['wgt'];
+    $billn = $_POST['billno'];
+    $originalDate = $_POST['date'];
+    $newDate = date("Y-m-d", strtotime($originalDate));
+    $imagenam = $_FILES['simg']['name'];
+    $tempnam = $_FILES['simg']['tmp_name'];
+
+    move_uploaded_file($tempnam, "../dbimages/$imagenam");
+
+    $qry = "INSERT INTO `courier` (`sname`, `rname`, `semail`, `remail`, `sphone`, `rphone`, `saddress`, `raddress`, `weight`, `billno`, `image`,`date`,`u_id`) VALUES ('$sname', '$rname', '$semail', '$remail', '$sphone', '$rphone', '$sadd', '$radd', '$wgt', '$billn', '$imagenam', '$newDate','$uid');";
+    $run = mysqli_query($dbcon, $qry);
+
+    
+    if ($run == true) {
+
+    ?> <script>
+            alert('Order Placed Successfully :)');
+            window.open('courierMenu.php', '_self');
+        </script>
+    <?php
+    }
+}
+
+?>
