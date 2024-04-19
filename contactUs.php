@@ -93,3 +93,24 @@
     </div>
 </body>
 </html>
+<?php
+if (isset($_POST['send'])) {
+    include('../dbconnection.php');
+    //access user entered data
+    $eml = $_POST['email'];
+    $sub = $_POST['subject'];
+    $msg = $_POST['message'];
+
+    $qry = "INSERT INTO `contacts` (`email`, `subject`, `msg`) VALUES ('$eml', '$sub', '$msg')";
+    $run = mysqli_query($dbcon, $qry);
+
+    if ($run == true) {
+
+    ?> <script>
+            alert('Thanks, we will be looking at your concern :)');
+            window.open('home.php', '_self');
+        </script>
+    <?php
+    }
+}
+?>
