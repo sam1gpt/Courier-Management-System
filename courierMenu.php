@@ -206,7 +206,7 @@ if (isset($_POST['submit'])) {
     $imagenam = $_FILES['simg']['name'];
     $tempnam = $_FILES['simg']['tmp_name'];
 
-    move_uploaded_file($tempnam, "../dbimages/$imagenam");
+    move_uploaded_file($tempnam, "../images/$imagenam");
 
     $qry = "INSERT INTO `courier` (`sname`, `rname`, `semail`, `remail`, `sphone`, `rphone`, `saddress`, `raddress`, `weight`, `billno`, `image`,`date`,`u_id`) VALUES ('$sname', '$rname', '$semail', '$remail', '$sphone', '$rphone', '$sadd', '$radd', '$wgt', '$billn', '$imagenam', '$newDate','$uid');";
     $run = mysqli_query($dbcon, $qry);
