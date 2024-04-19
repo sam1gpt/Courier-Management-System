@@ -1,4 +1,11 @@
-
+<?php
+session_start();
+if(isset($_SESSION['uid'])){
+    echo "";
+    }else{
+    header('location: ../index.php');
+    }
+    ?>
 <?php
 include('header.php');
 ?>
@@ -149,20 +156,28 @@ include('header.php');
     </style>
 </head>
 <body>
-    
+<?php
 
+include('../dbconnection.php');
+$id= $_SESSION['uid'];
+$qry= "SELECT * FROM `users` WHERE `u_id`='$id'";
+$run= mysqli_query($dbcon,$qry);
+
+$data = mysqli_fetch_assoc($run);
+
+?>
 
 <div class="page-content page-container" id="page-content">
     <div class="padding">
         <div class="row container d-flex justify-content-center">
-            <div class="col-xl-25 col-md-12"> <!-- Adjusted column width -->
+            <div class="col-xl-6 col-md-12">
                 <div class="card user-card-full">
                     <div class="row m-l-0 m-r-0">
                         <div class="col-sm-4 bg-c-lite-green user-profile">
                             <div class="card-block text-center text-white">
                                 <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
-                                <h3 class="f-w-600">Samarth And Uday</h3>
-                                <p>Makers of the Courier Database Management System</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                <h3 class="f-w-600"><?php echo $data['name']; ?></h3>
+                                <p>user</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                             </div>
                         </div>
                         <div class="col-sm-8">
@@ -171,12 +186,11 @@ include('header.php');
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Email</p>
-                                        <h6 class="text-muted f-w-400">sample@sample.com</h6>
-                                       
+                                        <h6 class="text-muted f-w-400"><?php echo $data['email']; ?></h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Phone</p>
-                                        <h6 class="text-muted f-w-400">12345</h6>
+                                        <h6 class="text-muted f-w-400"><?php echo $data['pnumber']; ?></h6>
                                     </div>
                                 </div>
 
@@ -184,7 +198,7 @@ include('header.php');
                                 <hr><br><hr>
                                 </div>
                                 <ul class="social-link list-unstyled m-t-40 m-b-10">
-                                <h6>Velocity- Delivering at the speed of light</h6>
+                                <h6>Velocity Courier Service</h6>
                                 </ul>
                             </div>
                         </div>
@@ -197,3 +211,5 @@ include('header.php');
 
 </body>
 </html>
+
+
